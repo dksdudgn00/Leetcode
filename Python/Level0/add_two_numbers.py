@@ -1,32 +1,59 @@
+class LinkNode(object):
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+        
+    # def len(self):
+    #     return len(self.val)
+    
+    # # def reverse(self):
+    # #     result = []
+    # #     for i in range(len(self.val),-1,-1):
+    # #         result.append(self.val[i])
+    # #     return result
+        
+    # def add(self, val):
+    #     self.val = val
+    
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
-        result_l1 = []
-        result_l2 = []
-        sliced_str = ""
-        result_int = 0
-        result_int2 = 0
-        for i in range(len(l1)-1,-1,-1):
-            result_l1.append(l1[i])
-        for i in range(len(l2)-1,-1,-1):
-            result_l2.append(l2[i])
-
-        final_result = []
-        for i in range(len(result_l1)):
-            for j in range(len(result_l2)):
-                if i == j:
-                    if result_l1[i] + result_l2[j] >= 10:
-                        num_str = str(result_l1[i] + result_l2[j])
-                        sliced_str = num_str[1]
-                        result_int = int(sliced_str)
-                        result_int2 = int(num_str[0])
-                        final_result.append(result_int)
-                        continue
-                    final_result.append(result_l1[i] + result_l2[j] + result_int2)
-                    break
+        # l1 = LinkNode([2,4,3])
+        # l2 = LinkNode([5,6,4])
+        cur = LinkNode()
+        carry = 0
         
-        return final_result
-
-
-a = Solution()
-print(a.addTwoNumbers([2,4,3],[5,6,4]))
+        result = []
+        while l1 and l2:
+            carry, val = divmod(l1.val+l2.val+carry, 10)
+            l1 = l1.next
+            l2 = l2.next
+            cur.next = LinkNode(val)
+            cur = cur.next
+            
+        l4 = l1 if l1 else l2
         
+            
+        # temp = 0
+        # temp2 = 0
+        # for i in range(len(l1)-1,-1,-1):
+        #     if l1[i].val + l2[i].val >= 10:
+        #         temp = int(str(l1[i].val + l2[i].val)[0])
+        #         temp2 = int(str(l1[i].val + l2[i].val)[1])
+                
+        #     result.append(LinkNode(l1[i].val + l2[i].val + temp + temp2))
+        # result = LinkNode(0)
+        
+        # for i in range(len(l1)):
+        #     result.add(l1[i] + l2[i])
+        
+        return result
+
+# s = Solution()
+# result = s.addTwoNumbers(LinkNode([2,4,3]),LinkNode([5,6,4]))
+# print(result)
+# print(s.addTwoNumbers([LinkNode(2), LinkNode(4), LinkNode(3)],
+#                         [LinkNode(5), LinkNode(6), LinkNode(4)]))
+            
+s = Solution()
+print(s.addTwoNumbers([LinkNode(2), LinkNode(4), LinkNode(3)],
+                      [LinkNode(5), LinkNode(6), LinkNode(4)]))
